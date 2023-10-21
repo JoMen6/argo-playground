@@ -1,40 +1,31 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: backend
-  labels:
-    group: example
-spec:
-  selector:
-    app: second-app
-  ports:
-    - port: 80
-      protocol: 'TCP'
-      targetPort: 8080
----
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: second-app-deployment
+  name: guestbook-ui
 spec:
   replicas: 1
+  revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app: second-app
-      tier: backend
+      app: guestbook-ui
   template:
     metadata:
       labels:
-        app: second-app
-        tier: backend
+        app: guestbook-ui
     spec:
       containers:
-        - name: second-node
-          image: jomen/kub-first-app:1
-          imagePullPolicy: Always
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8080
-            periodSeconds: 10
-            initialDelaySeconds: 5
+      - image: gcr.io/heptio-images/ks-guestbook-demo:0.2
+        name: guestbook-ui
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: guestbook-ui
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+  selector:
+    app: guestbook-ui
