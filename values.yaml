@@ -22,9 +22,6 @@
 #   * [if true] for toggles
 #   * [configuration] for section/group of variables
 
-camundaPlatform:
-  labels: "camunda"
-
 ##########################################
  #####
 #     # #       ####  #####    ##   #
@@ -39,6 +36,8 @@ camundaPlatform:
 ## @section Global parameters
 ## @extra global
 global:
+  camundaPlatform:
+    labels: "camunda"
   ## Multitenancy configuration.
   ## @extra global.multitenancy
   multitenancy:
