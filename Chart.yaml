@@ -6,6 +6,6 @@ version: 0.0.1
 appVersion: '0.0.1'
 
 dependencies:
-  - name: camunda
+  - name: camunda-platform
     repository: https://helm.camunda.io
     version: 8.2.18
